@@ -6,10 +6,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES main.cpp)
 
+set(INCLUDE_DIRECTORIES src util inc)
+
 file(GLOB SOURCE_FILES
         "src/*.h"
         "src/*.cpp"
+        "util/*.h"
+        "util/*.cpp"
+        "inc/glm/*.hpp"
         )
+
+include_directories(${INCLUDE_DIRECTORIES})
 
 add_executable(PaperGraph ${SOURCE_FILES})
 

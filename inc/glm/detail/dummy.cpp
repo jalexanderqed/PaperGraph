@@ -24,7 +24,7 @@ struct light
 	glm::vec4 ambient; // Acli
 	glm::vec4 diffuse; // Dcli
 	glm::vec4 specular; // Scli
-	glm::vec4 position; // Ppli
+	glm::vec4 location; // Ppli
 	glm::vec4 halfVector; // Derived: Hi
 	glm::vec3 spotDirection; // Sdli
 	float spotExponent; // Srli
@@ -118,7 +118,7 @@ glm::i32vec2 const PositionDataI32[VertexCount] =
 
 struct intersection
 {
-	glm::vec4 position;
+	glm::vec4 location;
 	glm::vec3 normal;
 };
 */
@@ -140,10 +140,10 @@ glm::vec3 lighting
 {
 	glm::vec3 Color(0.0f);
 	glm::vec3 LightVertor(glm::normalize(
-		Light.position - Intersection.position +
+		Light.location - Intersection.location +
 		glm::vecRand3(0.0f, Light.inaccuracy));
 
-	if(!shadow(Intersection.position, Light.position, LightVertor))
+	if(!shadow(Intersection.location, Light.location, LightVertor))
 	{
 		float Diffuse = glm::dot(Intersection.normal, LightVector);
 		if(Diffuse <= 0.0f)
