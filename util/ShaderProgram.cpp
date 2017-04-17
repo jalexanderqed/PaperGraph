@@ -64,7 +64,7 @@ void ShaderProgram::setLight(int lightIndex, LightType type, glm::vec3 position,
         return;
     }
 
-    lights[lightIndex].type.value.uintVal = (GLuint) type;
+    lights[lightIndex].type.value.intVal = type;
     lights[lightIndex].color.value.vec3Val = color;
     lights[lightIndex].position.value.vec3Val = position;
 
@@ -88,24 +88,29 @@ void ShaderProgram::setProj(glm::mat4 mat) {
     updateValue(projectionMat);
 }
 
+void ShaderProgram::setViewPos(glm::vec3 pos) {
+    viewPos.value.vec3Val = pos;
+    updateValue(viewPos);
+}
+
 void ShaderProgram::initStructs() {
     for (int i = 0; i < MAX_NUM_LIGHTS; i++) {
         UniformData type = {
-                UniformDataType::TYPE_UINT,
+                UniformDataType::TYPE_INT,
                 "lights[" + to_string(i) + "].type",
-                0,
-                uintDef
+                -1,
+                intDef
         };
         UniformData color = {
                 TYPE_VEC3,
                 "lights[" + to_string(i) + "].color",
-                0,
+                -1,
                 vec3Def
         };
         UniformData position = {
                 TYPE_VEC3,
                 "lights[" + to_string(i) + "].position",
-                0,
+                -1,
                 vec3Def
         };
         setLocation(type);
@@ -120,8 +125,7 @@ void ShaderProgram::initStructs() {
     setLocation(viewMat);
     setLocation(projectionMat);
     setLocation(normalModelMat);
-    setLocation(ambientStrength);
-    setLocation(ambientColor);
+    setLocation(viewPos);
 
     writeEverything();
 }
@@ -131,6 +135,10 @@ void ShaderProgram::setLocation(UniformData &uniform) {
 }
 
 void ShaderProgram::updateValue(const UniformData &uniform) {
+    if(uniform.location == -1){
+        return;
+    }
+
     switch (uniform.type) {
         case UniformDataType::TYPE_DISABLED:
             break;
@@ -173,8 +181,7 @@ void ShaderProgram::writeEverything(){
     updateModelMat();
     updateValue(viewMat);
     updateValue(projectionMat);
-    updateValue(ambientStrength);
-    updateValue(ambientColor);
+    updateValue(viewPos);
 }
 
 void ShaderProgram::updateModelMat() {

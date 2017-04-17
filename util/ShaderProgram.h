@@ -34,6 +34,8 @@ public:
 
     void setProj(glm::mat4 mat);
 
+    void setViewPos(glm::vec3 pos);
+
 protected:
     void initStructs();
 
@@ -47,13 +49,13 @@ protected:
 
     void updateModelMat();
 
-    UniformData modelMat = {UniformDataType::TYPE_MAT4, "modelMat", 0, mat4Def};
-    UniformData normalModelMat = {UniformDataType::TYPE_MAT3, "normalModelMat", 0, mat3Def};
-    UniformData viewMat = {UniformDataType::TYPE_MAT4, "viewMat", 0, mat4Def};
-    UniformData projectionMat = {UniformDataType::TYPE_MAT4, "projectionMat", 0, mat4Def};
+    UniformData modelMat = {UniformDataType::TYPE_MAT4, "modelMat", -1, mat4Def};
+    UniformData normalModelMat = {UniformDataType::TYPE_MAT3, "normalModelMat", -1, mat3Def};
+    UniformData viewMat = {UniformDataType::TYPE_MAT4, "viewMat", -1, mat4Def};
+    UniformData projectionMat = {UniformDataType::TYPE_MAT4, "projectionMat", -1, mat4Def};
 
-    UniformData ambientStrength = {UniformDataType::TYPE_FLOAT, "ambientStrength", 0, UniformValue(0.2f)};
-    UniformData ambientColor = {UniformDataType::TYPE_VEC3, "ambientColor", 0, glm::vec3(1, 1, 1)};
+    UniformData viewPos = {UniformDataType::TYPE_VEC3, "viewPos", -1, vec3Def};
+
     LightData lights[MAX_NUM_LIGHTS];
 };
 

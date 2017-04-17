@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmany-braces-around-scalar-init"
 #ifndef GLHW_01_UTIL_H
 #define GLHW_01_UTIL_H
 
@@ -71,7 +73,7 @@ struct UniformData {
         value = UniformValue();
     }
 
-    UniformData(UniformDataType t, string n, GLuint l, UniformValue v) {
+    UniformData(UniformDataType t, string n, GLint l, UniformValue v) {
         type = t;
         name = n;
         location = l;
@@ -80,7 +82,7 @@ struct UniformData {
 
     UniformDataType type;
     string name;
-    GLuint location;
+    GLint location;
     UniformValue value;
 };
 
@@ -105,3 +107,4 @@ struct LightData {
 string myReadFile(string name);
 
 #endif
+#pragma clang diagnostic pop

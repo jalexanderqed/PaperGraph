@@ -11,8 +11,8 @@
 
 enum LightType{
     LIGHT_DISABLED = 0,
-    LIGHT_POINT,
-    LIGHT_DIRECTION,
+    LIGHT_POINT = 1,
+    LIGHT_DIRECTION = 2,
 };
 
 enum UniformDataType{

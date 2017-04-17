@@ -1,13 +1,45 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <ShaderProgram.h>
+#include <Box.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 using namespace std;
 
 int screenWidth, screenHeight;
 
-void draw(){
+ShaderProgram shader;
+Box box;
 
+glm::vec3 lightPos = glm::vec3(0, 0, -1);
+
+void draw(){
+    shader.setProj(glm::perspective(glm::radians(45.0f), ((float) screenWidth) / screenHeight, 0.05f, 500.0f));
+    shader.setView(glm::lookAt(glm::vec3(3, 3, 7), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+
+    float lightLoc = 3.5 + 2 * sin(0.33 * glfwGetTime());
+    
+    glm::mat4 model;
+
+    model = glm::mat4();
+    //model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0, 0, 1));
+    shader.setModel(model);
+    box.Draw(shader);
+
+    model = glm::mat4();
+    model = glm::translate(model, -2 * lightPos);
+    shader.setModel(model);
+    box.Draw(shader);
+}
+
+void init(){
+    shader = ShaderProgram("shaders/standard.vert", "shaders/standard.frag");
+    shader.use();
+
+    shader.setLight(0, LightType::LIGHT_DIRECTION, lightPos, glm::vec3(0.7f, 0.7f, 0.7f));
+
+    box = Box(1, 1, 1);
 }
 
 void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mode) {
@@ -29,7 +61,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
-    GLFWwindow *window = glfwCreateWindow(800, 800, "glhw_01", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(800, 800, "PaperGraph", nullptr, nullptr);
     if (window == nullptr) {
         cout << "Failed to create GLFW window" << endl;
         glfwTerminate();
@@ -53,7 +85,9 @@ int main() {
     //glEnable(GL_CULL_FACE);
     //glCullFace(GL_BACK);
     glClearDepth(1);
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+
+    init();
 
     int lastSecond = 0;
     int frames = 0;

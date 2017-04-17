@@ -6,13 +6,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES main.cpp)
 
-set(INCLUDE_DIRECTORIES src util inc)
+set(INCLUDE_DIRECTORIES src util inc shapes)
 
 file(GLOB SOURCE_FILES
         "src/*.h"
         "src/*.cpp"
         "util/*.h"
         "util/*.cpp"
+        "shapes/*.cpp"
         "inc/glm/*.hpp"
         )
 

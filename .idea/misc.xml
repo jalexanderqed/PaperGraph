@@ -4,6 +4,7 @@
   <component name="CidrRootsConfiguration">
     <sourceRoots>
       <file path="$PROJECT_DIR$/inc" />
+      <file path="$PROJECT_DIR$/shapes" />
       <file path="$PROJECT_DIR$/src" />
       <file path="$PROJECT_DIR$/util" />
     </sourceRoots>
@@ -12,17 +13,8 @@
     </libraryRoots>
     <excludeRoots>
       <file path="$PROJECT_DIR$/build" />
+      <file path="$PROJECT_DIR$/cmake-build-debug/CMakeFiles" />
       <file path="$PROJECT_DIR$/shaders" />
     </excludeRoots>
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
   </component>
 </project>
